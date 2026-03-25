@@ -98,6 +98,9 @@ export const metadata: Metadata = {
     site: "@tecknow",
     creator: "@tecknow",
   },
+  verification: {
+    other: { "google-adsense-account": "ca-pub-6776954590169961" },
+  },
 };
 
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
