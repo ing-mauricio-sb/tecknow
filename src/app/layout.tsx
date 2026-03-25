@@ -7,6 +7,8 @@ import { NotificationPrompt } from "@/components/layout/NotificationPrompt";
 import { CookieConsent } from "@/components/layout/CookieConsent";
 import { AdblockWall } from "@/components/layout/AdblockWall";
 import { OrganizationJsonLd } from "@/components/seo/ArticleJsonLd";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -99,6 +101,7 @@ export const metadata: Metadata = {
 };
 
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
+const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export default function RootLayout({
   children,
@@ -118,6 +121,22 @@ export default function RootLayout({
         <NotificationPrompt />
         <CookieConsent />
         <AdblockWall />
+        <Analytics />
+        <SpeedInsights />
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaId}');`}
+            </Script>
+          </>
+        )}
         {adsenseClientId && (
           <Script
             async
