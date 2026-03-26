@@ -12,7 +12,7 @@ import type { CategorySlug } from "@/types";
 
 export default async function HomePage() {
   const [allArticles, breakingArticles] = await Promise.all([
-    getArticles(),
+    getArticles({ limit: 20 }),
     getBreakingArticles(),
   ]);
 

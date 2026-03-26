@@ -47,6 +47,7 @@ function rowToSummary(row: Record<string, unknown>): ArticleSummary {
 export async function getArticles(options?: {
   category?: CategorySlug;
   limit?: number;
+  offset?: number;
   urgency?: ArticleUrgency;
 }): Promise<ArticleSummary[]> {
   const conditions: string[] = [];
@@ -63,17 +64,27 @@ export async function getArticles(options?: {
   }
 
   const where = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
-  const limit = options?.limit ? `LIMIT $${i++}` : "";
+  const limitClause = options?.limit ? `LIMIT $${i++}` : "";
   if (options?.limit) params.push(options.limit);
+  const offsetClause = options?.offset ? `OFFSET $${i++}` : "";
+  if (options?.offset) params.push(options.offset);
 
   const rows = await query(
     `SELECT id, slug, titulo, subtitulo, resumen, categoria, urgencia,
             tags, fuente_original, imagen_url, published_at, reading_time_minutes
-     FROM articles ${where} ORDER BY published_at DESC ${limit}`,
+     FROM articles ${where} ORDER BY published_at DESC ${limitClause} ${offsetClause}`,
     params
   );
 
   return rows.map(rowToSummary);
+}
+
+export async function getArticleCount(category?: CategorySlug): Promise<number> {
+  const params: unknown[] = [];
+  const where = category ? "WHERE categoria = $1" : "";
+  if (category) params.push(category);
+  const rows = await query(`SELECT COUNT(*)::int as count FROM articles ${where}`, params);
+  return (rows[0]?.count as number) || 0;
 }
 
 export async function getArticleBySlug(slug: string): Promise<Article | null> {

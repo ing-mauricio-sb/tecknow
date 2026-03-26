@@ -1,15 +1,20 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import * as LucideIcons from "lucide-react";
-import { getArticles } from "@/lib/articles";
-import { getCategoryBySlug, getCategories } from "@/lib/categories";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { getArticles, getArticleCount } from "@/lib/articles";
+import { getCategoryBySlug } from "@/lib/categories";
 import { CATEGORY_CONFIG } from "@/lib/constants";
 import { NewsCard } from "@/components/news";
 import { AdSlot } from "@/components/ads";
 import type { Metadata } from "next";
 import type { CategorySlug } from "@/types";
 
+const ARTICLES_PER_PAGE = 12;
+
 type Props = {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ page?: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -37,13 +42,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export const revalidate = 3600;
 
-export default async function CategoryPage({ params }: Props) {
+export default async function CategoryPage({ params, searchParams }: Props) {
   const { slug } = await params;
+  const { page: pageParam } = await searchParams;
   const category = await getCategoryBySlug(slug as CategorySlug);
 
   if (!category) notFound();
 
-  const articles = await getArticles({ category: category.slug });
+  const currentPage = Math.max(1, parseInt(pageParam || "1", 10) || 1);
+  const offset = (currentPage - 1) * ARTICLES_PER_PAGE;
+
+  const [articles, totalCount] = await Promise.all([
+    getArticles({
+      category: category.slug,
+      limit: ARTICLES_PER_PAGE,
+      offset,
+    }),
+    getArticleCount(category.slug),
+  ]);
+
+  const totalPages = Math.ceil(totalCount / ARTICLES_PER_PAGE);
   const config = CATEGORY_CONFIG[category.slug];
   const IconComponent = LucideIcons[
     config.icon as keyof typeof LucideIcons
@@ -53,7 +71,6 @@ export default async function CategoryPage({ params }: Props) {
     <div className="mx-auto max-w-7xl px-4 py-8 lg:px-8">
       {/* Category Header */}
       <header className="glass relative mb-10 overflow-hidden rounded-2xl p-8 md:p-12">
-        {/* Decorative icon */}
         {IconComponent && (
           <IconComponent
             size={200}
@@ -77,10 +94,12 @@ export default async function CategoryPage({ params }: Props) {
           <p className="mt-2 max-w-xl font-[family-name:var(--font-ui)] text-base text-[var(--color-text-muted)]">
             {category.description}
           </p>
+          <p className="mt-1 font-[family-name:var(--font-mono)] text-xs text-[var(--color-text-muted)]">
+            {totalCount} articulo{totalCount !== 1 && "s"}
+          </p>
         </div>
       </header>
 
-      {/* Ad — Leaderboard */}
       <AdSlot format="horizontal" />
 
       {/* Articles grid */}
@@ -98,7 +117,45 @@ export default async function CategoryPage({ params }: Props) {
         </div>
       )}
 
-      {/* Ad — In-feed */}
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <nav className="mt-10 flex items-center justify-center gap-2" aria-label="Paginacion">
+          {currentPage > 1 ? (
+            <Link
+              href={`/categoria/${slug}?page=${currentPage - 1}`}
+              className="flex items-center gap-1 rounded-lg border border-[var(--color-border)] px-4 py-2 font-[family-name:var(--font-ui)] text-sm text-[var(--color-text-secondary)] transition-colors hover:bg-[var(--color-bg-elevated)]"
+            >
+              <ChevronLeft size={16} />
+              Anterior
+            </Link>
+          ) : (
+            <span className="flex items-center gap-1 rounded-lg border border-[var(--color-border)] px-4 py-2 font-[family-name:var(--font-ui)] text-sm text-[var(--color-text-muted)] opacity-40">
+              <ChevronLeft size={16} />
+              Anterior
+            </span>
+          )}
+
+          <span className="px-4 font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-muted)]">
+            {currentPage} / {totalPages}
+          </span>
+
+          {currentPage < totalPages ? (
+            <Link
+              href={`/categoria/${slug}?page=${currentPage + 1}`}
+              className="flex items-center gap-1 rounded-lg border border-[var(--color-border)] px-4 py-2 font-[family-name:var(--font-ui)] text-sm text-[var(--color-text-secondary)] transition-colors hover:bg-[var(--color-bg-elevated)]"
+            >
+              Siguiente
+              <ChevronRight size={16} />
+            </Link>
+          ) : (
+            <span className="flex items-center gap-1 rounded-lg border border-[var(--color-border)] px-4 py-2 font-[family-name:var(--font-ui)] text-sm text-[var(--color-text-muted)] opacity-40">
+              Siguiente
+              <ChevronRight size={16} />
+            </span>
+          )}
+        </nav>
+      )}
+
       {articles.length > 3 && <AdSlot format="rectangle" />}
     </div>
   );
