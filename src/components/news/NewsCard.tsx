@@ -30,7 +30,7 @@ export function NewsCard({ article, variant = "default", index = 0 }: NewsCardPr
           )}
         >
           {/* Image */}
-          <div className="relative aspect-[16/9] overflow-hidden">
+          <div className="relative aspect-[4/3] overflow-hidden md:aspect-[16/9]">
             {article.imagenUrl ? (
               <Image
                 src={article.imagenUrl}
@@ -43,15 +43,15 @@ export function NewsCard({ article, variant = "default", index = 0 }: NewsCardPr
             ) : (
               <div className="h-full w-full bg-[var(--color-bg-elevated)]" />
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-primary)] via-[var(--color-bg-primary)]/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-primary)] via-[var(--color-bg-primary)]/60 to-transparent md:via-[var(--color-bg-primary)]/40" />
 
-            {/* Content overlay */}
-            <div className="absolute bottom-0 left-0 right-0 p-6">
+            {/* Content overlay — hidden on mobile, shown on md+ */}
+            <div className="absolute bottom-0 left-0 right-0 hidden p-6 md:block">
               <CategoryBadge category={article.categoria} size="md" />
-              <h2 className="mt-3 font-[family-name:var(--font-display)] text-2xl font-bold leading-tight text-white md:text-3xl lg:text-4xl">
+              <h2 className="mt-3 font-[family-name:var(--font-display)] text-3xl font-bold leading-tight text-white lg:text-4xl">
                 {article.titulo}
               </h2>
-              <p className="mt-2 line-clamp-2 font-[family-name:var(--font-body)] text-sm text-[var(--color-text-secondary)] md:text-base">
+              <p className="mt-2 line-clamp-2 font-[family-name:var(--font-body)] text-base text-[var(--color-text-secondary)]">
                 {article.subtitulo}
               </p>
               <div className="mt-4 flex items-center gap-4">
@@ -63,6 +63,26 @@ export function NewsCard({ article, variant = "default", index = 0 }: NewsCardPr
                   Leer mas <ArrowRight size={14} />
                 </span>
               </div>
+            </div>
+          </div>
+
+          {/* Content below image — mobile only */}
+          <div className="p-4 md:hidden">
+            <CategoryBadge category={article.categoria} size="md" />
+            <h2 className="mt-2 font-[family-name:var(--font-display)] text-xl font-bold leading-tight text-[var(--color-text-primary)]">
+              {article.titulo}
+            </h2>
+            <p className="mt-1.5 line-clamp-2 font-[family-name:var(--font-body)] text-sm text-[var(--color-text-secondary)]">
+              {article.subtitulo}
+            </p>
+            <div className="mt-3 flex items-center gap-3">
+              <span className="flex items-center gap-1.5 font-[family-name:var(--font-ui)] text-xs text-[var(--color-text-muted)]">
+                <Clock size={12} />
+                {formatRelativeTime(article.publishedAt)}
+              </span>
+              <span className="inline-flex items-center gap-1 font-[family-name:var(--font-ui)] text-xs font-medium text-[var(--color-accent-text)]">
+                Leer mas <ArrowRight size={12} />
+              </span>
             </div>
           </div>
         </article>

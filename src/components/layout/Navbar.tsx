@@ -57,12 +57,13 @@ export function Navbar() {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
-            <button
+            <Link
+              href="/buscar"
               className="rounded-lg p-2 text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]"
               aria-label="Buscar"
             >
               <Search size={18} />
-            </button>
+            </Link>
             <button
               className="hidden rounded-lg p-2 text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)] sm:block"
               aria-label="Notificaciones"

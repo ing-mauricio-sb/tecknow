@@ -156,6 +156,25 @@ export async function GET(req: NextRequest) {
       } catch (err) {
         log.push(`Push skipped: ${String(err)}`);
       }
+
+      // Step 7: Send email to newsletter subscribers
+      try {
+        const { sendNewsletterToAll } = await import("@/lib/email");
+        const articleLinks = relevant
+          .filter((_, i) => published[i])
+          .map((item, i) => ({
+            titulo: published[i] ? item.title : item.title,
+            slug: published[i] || "",
+            categoria: item.suggestedCategory || item.defaultCategory,
+          }))
+          .filter((a) => a.slug);
+        const emailResult = await sendNewsletterToAll(articleLinks);
+        log.push(
+          `Email sent: ${emailResult.sent} ok, ${emailResult.failed} failed`
+        );
+      } catch (err) {
+        log.push(`Email skipped: ${String(err)}`);
+      }
     }
 
     return Response.json({

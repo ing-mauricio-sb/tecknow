@@ -101,6 +101,26 @@ export async function getRelatedArticles(
   return rows.map(rowToSummary);
 }
 
+// --- Search ---
+
+export async function searchArticles(
+  searchTerm: string,
+  limit: number = 20
+): Promise<ArticleSummary[]> {
+  const pattern = `%${searchTerm}%`;
+  const rows = await query(
+    `SELECT id, slug, titulo, subtitulo, resumen, categoria, urgencia,
+            tags, fuente_original, imagen_url, published_at, reading_time_minutes
+     FROM articles
+     WHERE titulo ILIKE $1 OR subtitulo ILIKE $1 OR EXISTS (
+       SELECT 1 FROM unnest(tags) AS t WHERE t ILIKE $1
+     )
+     ORDER BY published_at DESC LIMIT $2`,
+    [pattern, limit]
+  );
+  return rows.map(rowToSummary);
+}
+
 // --- Ingestion pipeline functions ---
 
 export async function createArticle(article: Omit<Article, "id">): Promise<Article> {
