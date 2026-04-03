@@ -24,17 +24,17 @@ export async function GET() {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>TECKNOW — Tech. Know. Repeat.</title>
-    <link>https://tecknow.news</link>
+    <link>https://www.tecknow.news</link>
     <description>Noticias de tecnologia, finanzas y negocios para ingenieros y profesionales de Latinoamerica.</description>
     <language>es</language>
     <lastBuildDate>${lastBuild}</lastBuildDate>
-    <atom:link href="https://tecknow.news/feed.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.tecknow.news/feed.xml" rel="self" type="application/rss+xml"/>
 ${articles
   .map(
     (a) => `    <item>
       <title>${escapeXml(a.titulo as string)}</title>
-      <link>https://tecknow.news/${a.slug}</link>
-      <guid isPermaLink="true">https://tecknow.news/${a.slug}</guid>
+      <link>https://www.tecknow.news/${a.slug}</link>
+      <guid isPermaLink="true">https://www.tecknow.news/${a.slug}</guid>
       <description>${escapeXml(a.subtitulo as string)}</description>
       <pubDate>${new Date(a.published_at as string).toUTCString()}</pubDate>
       <category>${escapeXml(a.categoria as string)}</category>

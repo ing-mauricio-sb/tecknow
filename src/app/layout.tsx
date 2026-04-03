@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   description:
     "Noticias de tecnologia, economia, finanzas y negocios para ingenieros y profesionales de Latinoamerica. IA, startups, regulacion tech y mas. Actualizado cada 4 horas.",
-  metadataBase: new URL("https://tecknow.news"),
+  metadataBase: new URL("https://www.tecknow.news"),
   keywords: [
     "noticias de tecnologia",
     "noticias tech",
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     "noticias de ciencia",
     "criptomonedas noticias",
   ],
-  authors: [{ name: "TECKNOW", url: "https://tecknow.news" }],
+  authors: [{ name: "TECKNOW", url: "https://www.tecknow.news" }],
   creator: "TECKNOW",
   publisher: "TECKNOW",
   robots: {
@@ -73,13 +73,13 @@ export const metadata: Metadata = {
     "max-video-preview": -1,
   },
   alternates: {
-    canonical: "https://tecknow.news",
-    types: { "application/rss+xml": "https://tecknow.news/feed.xml" },
+    canonical: "https://www.tecknow.news",
+    types: { "application/rss+xml": "https://www.tecknow.news/feed.xml" },
   },
   openGraph: {
     type: "website",
     locale: "es_PE",
-    url: "https://tecknow.news",
+    url: "https://www.tecknow.news",
     siteName: "TECKNOW",
     title: "TECKNOW — Noticias de Tecnologia para Latinoamerica",
     description:

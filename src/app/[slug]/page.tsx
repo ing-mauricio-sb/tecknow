@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: article.tags,
     authors: [{ name: "TECKNOW" }],
     alternates: {
-      canonical: `https://tecknow.news/${slug}`,
+      canonical: `https://www.tecknow.news/${slug}`,
     },
     openGraph: {
       title: article.titulo,
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       modifiedTime: article.publishedAt,
       section: article.categoria,
       tags: article.tags,
-      url: `https://tecknow.news/${slug}`,
+      url: `https://www.tecknow.news/${slug}`,
       images: article.imagenUrl
         ? [{ url: article.imagenUrl, width: 1200, height: 630, alt: article.titulo }]
         : [{ url: "/og-default.svg", width: 1200, height: 630 }],
@@ -87,7 +87,7 @@ export default async function ArticlePage({ params }: Props) {
   const bodyBefore = bodyParagraphs.slice(0, adInsertIndex).join("\n\n");
   const bodyAfter = bodyParagraphs.slice(adInsertIndex).join("\n\n");
 
-  const shareUrl = `https://tecknow.news/${article.slug}`;
+  const shareUrl = `https://www.tecknow.news/${article.slug}`;
   const shareText = encodeURIComponent(article.titulo);
 
   return (

@@ -16,14 +16,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
 
   const articleEntries: MetadataRoute.Sitemap = articles.map((a) => ({
-    url: `https://tecknow.news/${a.slug}`,
+    url: `https://www.tecknow.news/${a.slug}`,
     lastModified: new Date(a.published_at as string),
     changeFrequency: "weekly",
     priority: 0.7,
   }));
 
   const categoryEntries: MetadataRoute.Sitemap = categories.map((c) => ({
-    url: `https://tecknow.news/categoria/${c.slug}`,
+    url: `https://www.tecknow.news/categoria/${c.slug}`,
     lastModified: c.last_article_date
       ? new Date(c.last_article_date as string)
       : new Date(),
@@ -33,7 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     {
-      url: "https://tecknow.news",
+      url: "https://www.tecknow.news",
       lastModified: new Date(),
       changeFrequency: "hourly",
       priority: 1.0,
@@ -41,25 +41,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...categoryEntries,
     // Legal pages
     {
-      url: "https://tecknow.news/sobre-nosotros",
+      url: "https://www.tecknow.news/sobre-nosotros",
       lastModified: new Date("2026-03-25"),
       changeFrequency: "monthly",
       priority: 0.4,
     },
     {
-      url: "https://tecknow.news/contacto",
+      url: "https://www.tecknow.news/contacto",
       lastModified: new Date("2026-03-25"),
       changeFrequency: "monthly",
       priority: 0.4,
     },
     {
-      url: "https://tecknow.news/privacidad",
+      url: "https://www.tecknow.news/privacidad",
       lastModified: new Date("2026-03-25"),
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
-      url: "https://tecknow.news/terminos",
+      url: "https://www.tecknow.news/terminos",
       lastModified: new Date("2026-03-25"),
       changeFrequency: "yearly",
       priority: 0.3,

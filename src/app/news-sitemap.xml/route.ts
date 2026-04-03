@@ -27,7 +27,7 @@ export async function GET() {
 ${articles
   .map(
     (a) => `  <url>
-    <loc>https://tecknow.news/${a.slug}</loc>
+    <loc>https://www.tecknow.news/${a.slug}</loc>
     <news:news>
       <news:publication>
         <news:name>TECKNOW</news:name>

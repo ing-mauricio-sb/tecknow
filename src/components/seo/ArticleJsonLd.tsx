@@ -13,27 +13,27 @@ export function ArticleJsonLd({ article }: ArticleJsonLdProps) {
     "@type": "NewsArticle",
     headline: article.titulo,
     description: article.subtitulo,
-    image: article.imagenUrl || "https://tecknow.news/og-default.svg",
+    image: article.imagenUrl || "https://www.tecknow.news/og-default.svg",
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
     author: {
       "@type": "Organization",
       name: "TECKNOW",
-      url: "https://tecknow.news",
+      url: "https://www.tecknow.news",
     },
     publisher: {
       "@type": "Organization",
       name: "TECKNOW",
       logo: {
         "@type": "ImageObject",
-        url: "https://tecknow.news/icon-512.svg",
+        url: "https://www.tecknow.news/icon-512.svg",
         width: 512,
         height: 512,
       },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://tecknow.news/${article.slug}`,
+      "@id": `https://www.tecknow.news/${article.slug}`,
     },
     articleSection: categoryLabel,
     keywords: article.tags.join(", "),
@@ -54,10 +54,10 @@ export function OrganizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "NewsMediaOrganization",
     name: "TECKNOW",
-    url: "https://tecknow.news",
+    url: "https://www.tecknow.news",
     logo: {
       "@type": "ImageObject",
-      url: "https://tecknow.news/icon-512.svg",
+      url: "https://www.tecknow.news/icon-512.svg",
       width: 512,
       height: 512,
     },
@@ -69,7 +69,7 @@ export function OrganizationJsonLd() {
       "https://github.com/tecknow",
     ],
     foundingDate: "2026",
-    actionableFeedbackPolicy: "https://tecknow.news",
+    actionableFeedbackPolicy: "https://www.tecknow.news",
   };
 
   return (

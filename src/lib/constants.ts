@@ -5,7 +5,7 @@ export const SITE = {
   tagline: "Tech. Know. Repeat.",
   description:
     "La tech que ya deberias saber. Noticias de tecnologia, finanzas y negocios para ingenieros y profesionales de Latinoamerica.",
-  url: "https://tecknow.news",
+  url: "https://www.tecknow.news",
 } as const;
 
 export const NAV_LINKS = [

@@ -28,7 +28,7 @@ export async function fetchRSSFeed(
 ): Promise<RSSItem[]> {
   try {
     const res = await fetch(url, {
-      headers: { "User-Agent": "TECKNOW-Bot/1.0 (+https://tecknow.news)" },
+      headers: { "User-Agent": "TECKNOW-Bot/1.0 (+https://www.tecknow.news)" },
       signal: AbortSignal.timeout(10_000),
     });
     if (!res.ok) return [];

@@ -26,7 +26,7 @@ export async function sendNewsletterToAll(
     .map(
       (a) =>
         `<li style="margin-bottom:12px;">
-          <a href="https://tecknow.news/${a.slug}" style="color:#A78BFA;text-decoration:none;font-weight:600;">${a.titulo}</a>
+          <a href="https://www.tecknow.news/${a.slug}" style="color:#A78BFA;text-decoration:none;font-weight:600;">${a.titulo}</a>
           <br/><span style="color:#6B6B8A;font-size:12px;">${a.categoria}</span>
         </li>`
     )
@@ -45,7 +45,7 @@ export async function sendNewsletterToAll(
       <div style="margin-top:32px;padding-top:16px;border-top:1px solid #1E1E32;">
         <p style="color:#6B6B8A;font-size:11px;margin:0;">
           Recibes este email porque te suscribiste a TECKNOW.NEWS.
-          <a href="https://tecknow.news" style="color:#A78BFA;">Visitar sitio</a>
+          <a href="https://www.tecknow.news" style="color:#A78BFA;">Visitar sitio</a>
         </p>
       </div>
     </div>

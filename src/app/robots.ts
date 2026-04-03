@@ -10,8 +10,8 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: [
-      "https://tecknow.news/sitemap.xml",
-      "https://tecknow.news/news-sitemap.xml",
+      "https://www.tecknow.news/sitemap.xml",
+      "https://www.tecknow.news/news-sitemap.xml",
     ],
   };
 }

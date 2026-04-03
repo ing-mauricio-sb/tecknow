@@ -28,13 +28,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: category.description,
     keywords: [`noticias ${category.name.toLowerCase()}`, "tecnologia", "latinoamerica", category.slug],
     alternates: {
-      canonical: `https://tecknow.news/categoria/${slug}`,
+      canonical: `https://www.tecknow.news/categoria/${slug}`,
     },
     openGraph: {
       type: "website",
       title: `${category.name} | TECKNOW`,
       description: category.description,
-      url: `https://tecknow.news/categoria/${slug}`,
+      url: `https://www.tecknow.news/categoria/${slug}`,
       images: [{ url: "/og-default.svg", width: 1200, height: 630 }],
     },
   };
