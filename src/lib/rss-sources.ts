@@ -102,4 +102,40 @@ export const RSS_SOURCES: RSSSource[] = [
     url: "https://api.spaceflightnewsapi.net/v4/articles/?format=json&limit=10",
     defaultCategory: "curiosidad",
   },
+
+  // ── Medios tech en espanol ──
+  {
+    name: "Xataka",
+    url: "https://www.xataka.com/feedburner.xml",
+    defaultCategory: "tech",
+  },
+  {
+    name: "WWWhats New",
+    url: "https://wwwhatsnew.com/feed/",
+    defaultCategory: "tech",
+  },
+
+  // ── Latam tech y startups ──
+  {
+    name: "FayerWayer",
+    url: "https://www.fayerwayer.com/feed/",
+    defaultCategory: "latam",
+  },
+  {
+    name: "DPL News",
+    url: "https://dplnews.com/feed/",
+    defaultCategory: "latam",
+  },
+
+  // ── Finanzas y fintech ──
+  {
+    name: "iProUP",
+    url: "https://www.iproup.com/rss",
+    defaultCategory: "finanzas",
+  },
+  {
+    name: "Bloomberg Linea",
+    url: "https://www.bloomberglinea.com/feed/",
+    defaultCategory: "finanzas",
+  },
 ];
