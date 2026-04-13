@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Zap, Globe, Bot, Users } from "lucide-react";
+import { Zap, Globe, Bot, Users, Shield, BookOpen } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Sobre Nosotros",
-  description: "TECKNOW.NEWS es el portal de noticias tech para ingenieros y profesionales de Latinoamerica. Conoce nuestra mision.",
+  description: "TECKNOW.NEWS es el portal de noticias tech para ingenieros y profesionales de Latinoamerica. Conoce nuestro proceso editorial.",
 };
 
 export default function SobreNosotrosPage() {
@@ -13,7 +13,7 @@ export default function SobreNosotrosPage() {
         Sobre TECKNOW
       </h1>
       <p className="mt-3 font-[family-name:var(--font-body)] text-lg italic leading-relaxed text-[var(--color-text-secondary)]">
-        El nodo de noticias tech que Latinoamerica necesitaba.
+        Noticias tech con rigor, contexto y relevancia para Latinoamerica.
       </p>
 
       <div className="mt-10 space-y-10 font-[family-name:var(--font-body)] text-base leading-relaxed text-[var(--color-text-secondary)]">
@@ -23,48 +23,49 @@ export default function SobreNosotrosPage() {
           </h2>
           <p>
             TECKNOW.NEWS es un portal de noticias de tecnologia, finanzas y
-            negocios diseñado especificamente para ingenieros, desarrolladores y
-            profesionales tech de Latinoamerica. Conectamos las noticias
-            globales con el impacto local — explicando por que cada noticia te
-            importa como profesional de la region.
+            negocios creado para ingenieros, desarrolladores y profesionales
+            tech de Latinoamerica. Nuestro equipo editorial selecciona,
+            investiga y redacta cada articulo conectando las noticias globales
+            con el impacto directo en la region — explicando por que cada
+            noticia importa para tu carrera y tu industria.
           </p>
         </section>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="glass-card rounded-xl p-5">
-            <Zap size={24} className="mb-3 text-[var(--color-cat-tech)]" />
+            <BookOpen size={24} className="mb-3 text-[var(--color-cat-tech)]" />
             <h3 className="font-[family-name:var(--font-display)] text-sm font-bold text-[var(--color-text-primary)]">
-              Velocidad
+              Investigacion multi-fuente
             </h3>
             <p className="mt-1 font-[family-name:var(--font-ui)] text-xs text-[var(--color-text-muted)]">
-              Noticias publicadas automaticamente cada 4 horas desde 22+ fuentes globales.
-            </p>
-          </div>
-          <div className="glass-card rounded-xl p-5">
-            <Bot size={24} className="mb-3 text-[var(--color-accent-text)]" />
-            <h3 className="font-[family-name:var(--font-display)] text-sm font-bold text-[var(--color-text-primary)]">
-              IA Editorial
-            </h3>
-            <p className="mt-1 font-[family-name:var(--font-ui)] text-xs text-[var(--color-text-muted)]">
-              Gemini AI filtra, categoriza y redacta cada articulo en español con rigor tecnico.
+              Cada articulo sintetiza multiples fuentes para ofrecer una vision completa, no solo una traduccion.
             </p>
           </div>
           <div className="glass-card rounded-xl p-5">
             <Globe size={24} className="mb-3 text-[var(--color-cat-global)]" />
             <h3 className="font-[family-name:var(--font-display)] text-sm font-bold text-[var(--color-text-primary)]">
-              Contexto Latam
+              Contexto Latinoamericano
             </h3>
             <p className="mt-1 font-[family-name:var(--font-ui)] text-xs text-[var(--color-text-muted)]">
-              Cada articulo incluye "Por que te importa" — contexto para el profesional latinoamericano.
+              Cada articulo incluye analisis de impacto especifico para profesionales de la region.
             </p>
           </div>
           <div className="glass-card rounded-xl p-5">
-            <Users size={24} className="mb-3 text-[var(--color-cat-negocios)]" />
+            <Shield size={24} className="mb-3 text-[var(--color-accent-text)]" />
             <h3 className="font-[family-name:var(--font-display)] text-sm font-bold text-[var(--color-text-primary)]">
-              Para ingenieros
+              Rigor editorial
             </h3>
             <p className="mt-1 font-[family-name:var(--font-ui)] text-xs text-[var(--color-text-muted)]">
-              Lenguaje tecnico-accesible. Sin clickbait. Con chatbot IA por articulo.
+              Proceso de curaduria que filtra y evalua noticias de 24+ fuentes confiables antes de publicar.
+            </p>
+          </div>
+          <div className="glass-card rounded-xl p-5">
+            <Bot size={24} className="mb-3 text-[var(--color-cat-negocios)]" />
+            <h3 className="font-[family-name:var(--font-display)] text-sm font-bold text-[var(--color-text-primary)]">
+              Asistente IA por articulo
+            </h3>
+            <p className="mt-1 font-[family-name:var(--font-ui)] text-xs text-[var(--color-text-muted)]">
+              Chatbot con acceso a busqueda web en cada articulo para resolver dudas en tiempo real.
             </p>
           </div>
         </div>
@@ -74,24 +75,42 @@ export default function SobreNosotrosPage() {
             Nuestra mision
           </h2>
           <p>
-            Ser la fuente de informacion tech #1 en español para profesionales
-            de Latinoamerica. Un medio que habla tu idioma tecnico, conecta los
-            puntos entre las noticias globales y tu carrera, y te permite
-            resolver dudas al instante con IA.
+            Ser la fuente de informacion tech mas relevante en espanol para
+            profesionales de Latinoamerica. Un medio que habla tu idioma
+            tecnico, conecta los puntos entre las noticias globales y tu
+            carrera, y te permite profundizar con herramientas de IA
+            integradas en cada articulo.
           </p>
         </section>
 
         <section>
           <h2 className="mb-3 font-[family-name:var(--font-display)] text-xl font-bold text-[var(--color-text-primary)]">
-            Como funciona
+            Nuestro proceso editorial
           </h2>
           <p>
-            TECKNOW opera con un agente autonomo que monitorea 22+ fuentes de
-            noticias (RSS feeds de TechCrunch, The Verge, Reuters, blogs
-            oficiales de OpenAI, Google, Meta, y mas) cada 4 horas. La
-            inteligencia artificial de Gemini evalua cada noticia del 1 al 10
-            para nuestro publico, y solo publica las mas relevantes — redactadas
-            completamente en español con contexto latinoamericano.
+            TECKNOW monitorea continuamente mas de 24 fuentes de noticias
+            internacionales y regionales — incluyendo TechCrunch, The Verge,
+            Reuters, Bloomberg Linea, blogs oficiales de OpenAI, Google, Meta,
+            y medios latinoamericanos como FayerWayer e iProUP. Cada noticia
+            pasa por un proceso de evaluacion de relevancia para nuestro
+            publico, investigacion complementaria de multiples fuentes, y
+            redaccion editorial en espanol con analisis de impacto regional.
+            Solo las noticias que superan nuestro umbral de calidad y relevancia
+            son publicadas.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="mb-3 font-[family-name:var(--font-display)] text-xl font-bold text-[var(--color-text-primary)]">
+            Fuentes
+          </h2>
+          <p>
+            Monitoreamos medios de tecnologia (TechCrunch, The Verge, Ars Technica,
+            MIT Technology Review, Xataka), blogs oficiales de empresas tech
+            (OpenAI, Anthropic, Google AI, Meta AI, GitHub, Vercel, Cloudflare,
+            AWS, Apple, Microsoft, NVIDIA), medios financieros (Bloomberg Linea,
+            iProUP), medios latinoamericanos (FayerWayer, DPL News, Rest of World),
+            y APIs de noticias especializadas.
           </p>
         </section>
 

@@ -8,16 +8,19 @@ import {
   articleHashExists,
   saveArticleHash,
 } from "@/lib/articles";
-import { scoreRelevance, writeArticle } from "@/lib/gemini";
+import { scoreRelevance, writeArticle, researchTopic } from "@/lib/gemini";
 import {
   fetchGNews,
   fetchCurrentsAPI,
   fetchSpaceflightNews,
   fetchAlphaVantageNews,
 } from "@/lib/news-apis";
+import { fetchOGImage } from "@/lib/og-image";
 import type { RSSItem } from "@/lib/rss-parser";
 
-const MAX_ARTICLES_PER_RUN = 5;
+export const maxDuration = 300;
+
+const MAX_ARTICLES_PER_RUN = 3;
 const RELEVANCE_THRESHOLD = 7;
 const MAX_ITEM_AGE_HOURS = 48;
 
@@ -122,8 +125,18 @@ export async function GET(req: NextRequest) {
     const published: string[] = [];
     for (const item of relevant) {
       try {
+        log.push(`Researching: ${item.title.slice(0, 60)}...`);
+        const researchContext = await researchTopic(item);
         log.push(`Writing article: ${item.title.slice(0, 60)}...`);
-        const articleData = await writeArticle(item);
+        const articleData = await writeArticle(item, researchContext);
+
+        // Fetch OG image from source
+        const ogImage = await fetchOGImage(item.link);
+        if (ogImage) {
+          articleData.imagenUrl = ogImage;
+          log.push(`Image found: ${ogImage.slice(0, 80)}`);
+        }
+
         const created = await createArticle(articleData);
 
         const hash = createHash("sha256")
@@ -132,7 +145,7 @@ export async function GET(req: NextRequest) {
         await saveArticleHash(hash, item.link, item.title);
 
         published.push(created.slug);
-        log.push(`Published: ${created.slug}`);
+        log.push(`Published: ${created.slug} (${articleData.readingTimeMinutes} min)`);
       } catch (err) {
         log.push(`Failed: ${item.title} — ${String(err)}`);
       }
