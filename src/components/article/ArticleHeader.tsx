@@ -1,4 +1,4 @@
-import { Clock, ExternalLink, Timer } from "lucide-react";
+import { Clock, ExternalLink, Timer, User } from "lucide-react";
 import { CategoryBadge } from "@/components/ui";
 import { formatRelativeTime } from "@/lib/utils";
 import type { Article } from "@/types";
@@ -22,6 +22,10 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
 
       {/* Metadata */}
       <div className="mt-5 flex flex-wrap items-center gap-4 border-b border-[var(--color-border)] pb-5 font-[family-name:var(--font-ui)] text-sm text-[var(--color-text-muted)]">
+        <span className="flex items-center gap-1.5">
+          <User size={14} />
+          Redaccion TECKNOW
+        </span>
         <span className="flex items-center gap-1.5">
           <Clock size={14} />
           {formatRelativeTime(article.publishedAt)}

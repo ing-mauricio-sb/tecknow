@@ -96,6 +96,27 @@ export default async function ArticlePage({ params }: Props) {
       <ReadingProgress />
 
       <div className="mx-auto max-w-7xl px-4 py-8 lg:px-8">
+        {/* Breadcrumbs */}
+        <nav aria-label="Breadcrumb" className="mb-6 font-[family-name:var(--font-ui)] text-xs text-[var(--color-text-muted)]">
+          <ol className="flex items-center gap-1.5">
+            <li>
+              <Link href="/" className="transition-colors hover:text-[var(--color-accent-text)]">
+                Inicio
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <Link href={`/categoria/${article.categoria}`} className="transition-colors hover:text-[var(--color-accent-text)]">
+                {article.categoria.charAt(0).toUpperCase() + article.categoria.slice(1)}
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li className="truncate max-w-[200px]" aria-current="page">
+              {article.titulo}
+            </li>
+          </ol>
+        </nav>
+
         <div className="lg:grid lg:grid-cols-[1fr_300px] lg:gap-8">
           {/* Main Content */}
           <article className="max-w-[720px]">
