@@ -2,7 +2,6 @@ import { google } from "@ai-sdk/google";
 import { streamText } from "ai";
 import { getArticleBySlug } from "@/lib/articles";
 
-// --- Rate limiter: 3 messages per IP per 24h ---
 const DAILY_LIMIT = 3;
 const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -58,7 +57,6 @@ export async function POST(req: Request) {
 
   const { messages: rawMessages, articleSlug } = await req.json();
 
-  // Convert UIMessage format (parts) to ModelMessage format (content)
   const messages = rawMessages.map(
     (msg: { role: string; parts?: { type: string; text?: string }[]; content?: string }) => ({
       role: msg.role,
@@ -82,9 +80,9 @@ export async function POST(req: Request) {
     .map((faq) => `P: ${faq.pregunta}\nR: ${faq.respuesta}`)
     .join("\n\n");
 
-  const systemPrompt = `Eres el asistente de noticias de TECKNOW.NEWS.
-Solo puedes responder preguntas relacionadas con el siguiente articulo:
+  const systemPrompt = `Eres el asistente de noticias de TECKNOW.NEWS. Tienes acceso al articulo y a busqueda web en tiempo real.
 
+ARTICULO BASE:
 TITULO: ${article.titulo}
 SUBTITULO: ${article.subtitulo}
 CONTENIDO: ${article.cuerpo}
@@ -95,15 +93,21 @@ PREGUNTAS FRECUENTES:
 ${faqContext}
 
 REGLAS:
-- Responde siempre en espanol, de forma concisa y tecnica.
-- Si te preguntan algo que no esta en el articulo, responde amablemente que tu conocimiento se limita a este articulo y sugiere buscar en TECKNOW.NEWS.
-- Usa un tono profesional pero cercano, como un colega senior explicando.
-- Maximo 150 palabras por respuesta.`;
+- Responde siempre en espanol, de forma concisa y tecnica
+- Para preguntas sobre el contenido del articulo, responde con la informacion del articulo
+- Para preguntas sobre actualizaciones, novedades posteriores, o temas que van mas alla del articulo, USA LA BUSQUEDA WEB para encontrar informacion actualizada
+- Cuando uses busqueda web, indica brevemente que buscaste informacion actualizada
+- Tono: profesional pero cercano, como un colega senior explicando
+- Maximo 250 palabras por respuesta
+- Si no encuentras informacion relevante ni en el articulo ni en la web, dilo honestamente`;
 
   const result = streamText({
     model: google("gemini-2.5-flash"),
     system: systemPrompt,
     messages,
+    tools: {
+      google_search: google.tools.googleSearch({}),
+    },
   });
 
   const response = result.toUIMessageStreamResponse();

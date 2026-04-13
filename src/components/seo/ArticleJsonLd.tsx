@@ -8,7 +8,7 @@ interface ArticleJsonLdProps {
 export function ArticleJsonLd({ article }: ArticleJsonLdProps) {
   const categoryLabel = CATEGORY_CONFIG[article.categoria]?.label || article.categoria;
 
-  const jsonLd = {
+  const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     headline: article.titulo,
@@ -17,9 +17,10 @@ export function ArticleJsonLd({ article }: ArticleJsonLdProps) {
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
     author: {
-      "@type": "Organization",
-      name: "TECKNOW",
-      url: "https://www.tecknow.news",
+      "@type": "Person",
+      name: "Redaccion TECKNOW",
+      jobTitle: "Equipo Editorial",
+      url: "https://www.tecknow.news/sobre-nosotros",
     },
     publisher: {
       "@type": "Organization",
@@ -41,11 +42,41 @@ export function ArticleJsonLd({ article }: ArticleJsonLdProps) {
     inLanguage: "es",
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Inicio",
+        item: "https://www.tecknow.news",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: categoryLabel,
+        item: `https://www.tecknow.news/categoria/${article.categoria}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: article.titulo,
+      },
+    ],
+  };
+
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+    </>
   );
 }
 
@@ -69,7 +100,7 @@ export function OrganizationJsonLd() {
       "https://github.com/tecknow",
     ],
     foundingDate: "2026",
-    actionableFeedbackPolicy: "https://www.tecknow.news",
+    actionableFeedbackPolicy: "https://www.tecknow.news/contacto",
   };
 
   return (
